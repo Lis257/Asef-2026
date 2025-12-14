@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 
-// --- 1P GAMES ---
+// ---  GAMES ---
 import CoinFlipper from './games/CoinFlipper';
 import GuessTheNumber from './games/GuessTheNumber';
 import CookieClicker from './games/CookieClicker';
