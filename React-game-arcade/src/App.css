@@ -1,58 +1,278 @@
-:root {
-  --primary: #646cff;
-  --bg: #242424;
-  --card-bg: #1a1a1a;
+/* ===============================
+   GLOBAL RESET
+================================ */
+* {
+  box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg);
-  color: white;
-  min-height: 100vh;
-}
-
-#root {
+html, body, #root {
   width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #ffffff;
+  background: #0f0f1a;
+}
+
+/* ===============================
+   APP CONTAINER
+================================ */
+.app-container {
   min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  background: radial-gradient(circle at top, #1f2036, #0c0d18);
+}
+
+/* ===============================
+   LOADING SCREEN (UPGRADED)
+================================ */
+.loading-screen {
+  position: fixed;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: radial-gradient(circle at top, #1f2036, #0c0d18);
+  z-index: 9999;
 }
 
-.app-container {
-  text-align: center;
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 40px 50px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #2a2b44, #1b1c2f);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  animation: fadeUp 0.6s ease;
+}
+
+/* Arcade Title */
+.loading-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* Joystick animation */
+.joystick {
+  font-size: 3.5rem;
+  animation: joystickBounce 1.2s infinite ease-in-out;
+  filter: drop-shadow(0 0 12px rgba(255,0,0,0.5));
+}
+
+/* Loading dots */
+.loading-text {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  opacity: 0.85;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+/* Progress bar */
+.loading-bar {
+  width: 220px;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  animation: loadingFill 1.5s ease-in-out infinite;
+}
+
+/* ===============================
+   ANIMATIONS
+================================ */
+@keyframes joystickBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes loadingFill {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@keyframes dots {
+  0% { content: ''; }
+  33% { content: '.'; }
+  66% { content: '..'; }
+  100% { content: '...'; }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ===============================
+   MENU WRAPPER
+================================ */
+.menu-fade-in {
   width: 100%;
-  max-width: 1000px;
-  padding: 20px;
+  max-width: 1200px;
+  animation: fadeIn 0.4s ease;
 }
 
+/* ===============================
+   HEADER
+================================ */
+header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.subtitle {
+  opacity: 0.7;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   CATEGORY TABS
+================================ */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.category-tabs button {
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: #2a2b44;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.category-tabs button:hover {
+  transform: translateY(-1px);
+}
+
+.category-tabs .active-tab {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #000;
+}
+
+/* ===============================
+   GAME GRID
+================================ */
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 2rem;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 22px;
+  width: 100%;
+  justify-items: center;
 }
 
+/* ===============================
+   GAME CARD
+================================ */
 .game-card {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid #333;
+  width: 100%;
+  max-width: 220px;
+  background: linear-gradient(180deg, #2a2b44, #1b1c2f);
+  border-radius: 16px;
+  padding: 22px;
   cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: white;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .game-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-5px);
-  background: #2a2a2a;
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.45);
+}
+
+.card-content {
+  text-align: center;
+}
+
+.game-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ===============================
+   GAME SCREEN
+================================ */
+.game-screen {
+  width: 100%;
+  max-width: 1200px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ===============================
+   ANIMATIONS
+================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===============================
+   MOBILE TWEAKS
+================================ */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  .game-card {
+    max-width: 100%;
+  }
 }

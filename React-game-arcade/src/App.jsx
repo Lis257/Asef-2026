@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// ---  GAMES ---
+// --- GAMES ---
 import CoinFlipper from './games/CoinFlipper';
 import GuessTheNumber from './games/GuessTheNumber';
 import CookieClicker from './games/CookieClicker';
@@ -28,10 +28,15 @@ import TugOfWar from './games/TugOfWar';
 const App = () => {
   const [activeGame, setActiveGame] = useState(null);
   const [playerMode, setPlayerMode] = useState('1P');
+  const [loading, setLoading] = useState(true);
 
-  // The Master Collection (1-20)
+  // ⏳ Fake loading delay (boot screen)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1800);
+    return () => clearTimeout(timer);
+  }, []);
+
   const games = [
-    // 1 Player Collection
     { id: 'snake', name: '🐍 Snake', mode: '1P', component: <Snake goBack={() => setActiveGame(null)} /> },
     { id: '2048', name: '🔢 2048', mode: '1P', component: <TwoZeroFourEight goBack={() => setActiveGame(null)} /> },
     { id: 'sliding', name: '🧩 Sliding Tiles', mode: '1P', component: <SlidingPuzzle goBack={() => setActiveGame(null)} /> },
@@ -49,7 +54,6 @@ const App = () => {
     { id: 'guess', name: '❓ Guess Number', mode: '1P', component: <GuessTheNumber goBack={() => setActiveGame(null)} /> },
     { id: 'coin', name: '🪙 Coin Flip', mode: '1P', component: <CoinFlipper goBack={() => setActiveGame(null)} /> },
 
-    // 2 Player Collection
     { id: 'tictactoe', name: '❌ Tic Tac Toe', mode: '2P', component: <TicTacToe goBack={() => setActiveGame(null)} /> },
     { id: 'c4', name: '🔴 Connect Four', mode: '2P', component: <ConnectFour goBack={() => setActiveGame(null)} /> },
     { id: 'rps', name: '✌️ Rock Paper Scissors', mode: '2P', component: <RockPaperScissors goBack={() => setActiveGame(null)} /> },
@@ -58,6 +62,27 @@ const App = () => {
 
   const filteredGames = games.filter(game => game.mode === playerMode);
 
+  // 🔥 LOADING SCREEN
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-card">
+          <div className="joystick">🕹️</div>
+          <h1 className="loading-title">React Arcade</h1>
+
+          <div className="loading-bar">
+            <div className="loading-bar-fill"></div>
+          </div>
+
+          <div className="loading-text">
+            Loading games<span className="loading-dots"></span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 🎮 MAIN APP
   return (
     <div className="app-container">
       {activeGame ? (
@@ -68,16 +93,16 @@ const App = () => {
             <h1>React Arcade 🕹️</h1>
             <p className="subtitle">Level {games.length}/50</p>
           </header>
-          
+
           <nav className="category-tabs">
-            <button 
-              className={playerMode === '1P' ? 'active-tab p1' : 'p1'} 
+            <button
+              className={playerMode === '1P' ? 'active-tab p1' : 'p1'}
               onClick={() => setPlayerMode('1P')}
             >
               Single Player
             </button>
-            <button 
-              className={playerMode === '2P' ? 'active-tab p2' : 'p2'} 
+            <button
+              className={playerMode === '2P' ? 'active-tab p2' : 'p2'}
               onClick={() => setPlayerMode('2P')}
             >
               Multiplayer
@@ -85,15 +110,13 @@ const App = () => {
           </nav>
 
           <main className="game-grid">
-            {filteredGames.map((game) => (
-              <div 
-                key={game.id} 
-                className="game-card" 
+            {filteredGames.map(game => (
+              <div
+                key={game.id}
+                className="game-card"
                 onClick={() => setActiveGame(game.component)}
               >
-                <div className="card-content">
-                   <span className="game-name">{game.name}</span>
-                </div>
+                <span className="game-name">{game.name}</span>
               </div>
             ))}
           </main>
