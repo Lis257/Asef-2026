@@ -19,11 +19,24 @@ import LightsOut from './games/LightsOut';
 import ColorFlood from './games/ColorFlood';
 import Hanoi from './games/Hanoi';
 
+
 // --- 2P GAMES ---
 import TicTacToe from './games/TicTacToe';
 import RockPaperScissors from './games/RockPaperScissors';
 import ConnectFour from './games/ConnectFour';
 import TugOfWar from './games/TugOfWar';
+import Pong from './games/Pong';
+import TronDuel from './games/TronDuel';
+import ClickWar from './games/ClickWar';
+import ReactionDuel from './games/ReactionDuel';
+import MathFight from './games/MathFight';
+import Gomoku from './games/Gomoku';
+import MemoryDuel from './games/MemoryDuel';
+import NimGame from './games/NimGame';
+import DotsAndBoxes from './games/DotsAndBoxes';
+import SOSGame from './games/SOSGame';
+import DiceRace from './games/DiceRace';
+import TankDuel from './games/TankDuel';
 
 const App = () => {
   const [activeGame, setActiveGame] = useState(null);
@@ -54,10 +67,26 @@ const App = () => {
     { id: 'guess', name: '❓ Guess Number', mode: '1P', component: <GuessTheNumber goBack={() => setActiveGame(null)} /> },
     { id: 'coin', name: '🪙 Coin Flip', mode: '1P', component: <CoinFlipper goBack={() => setActiveGame(null)} /> },
 
+
+    // --- 2P GAMES (Original 4 + New 12) ---
     { id: 'tictactoe', name: '❌ Tic Tac Toe', mode: '2P', component: <TicTacToe goBack={() => setActiveGame(null)} /> },
     { id: 'c4', name: '🔴 Connect Four', mode: '2P', component: <ConnectFour goBack={() => setActiveGame(null)} /> },
     { id: 'rps', name: '✌️ Rock Paper Scissors', mode: '2P', component: <RockPaperScissors goBack={() => setActiveGame(null)} /> },
     { id: 'tug', name: '💪 Tug of War', mode: '2P', component: <TugOfWar goBack={() => setActiveGame(null)} /> },
+
+    // NEW ADDITIONS
+    { id: 'pong', name: '🏓 Pong', mode: '2P', component: <Pong goBack={() => setActiveGame(null)} /> },
+    { id: 'tron', name: '🏍️ Tron Duel', mode: '2P', component: <TronDuel goBack={() => setActiveGame(null)} /> },
+    { id: 'clickwar', name: '🖱️ Click War', mode: '2P', component: <ClickWar goBack={() => setActiveGame(null)} /> },
+    { id: 'reaction2p', name: '⚡ Reaction Duel', mode: '2P', component: <ReactionDuel goBack={() => setActiveGame(null)} /> },
+    { id: 'math2p', name: '➗ Math Fight', mode: '2P', component: <MathFight goBack={() => setActiveGame(null)} /> },
+    { id: 'gomoku', name: '⚪⚫ Gomoku', mode: '2P', component: <Gomoku goBack={() => setActiveGame(null)} /> },
+    { id: 'memory2p', name: '🃏 Memory Duel', mode: '2P', component: <MemoryDuel goBack={() => setActiveGame(null)} /> },
+    { id: 'nim', name: '🔥 Nim', mode: '2P', component: <NimGame goBack={() => setActiveGame(null)} /> },
+    { id: 'dots', name: '🔳 Dots & Boxes', mode: '2P', component: <DotsAndBoxes goBack={() => setActiveGame(null)} /> },
+    { id: 'sos', name: '🆘 SOS', mode: '2P', component: <SOSGame goBack={() => setActiveGame(null)} /> },
+    { id: 'dice', name: '🎲 Dice Race', mode: '2P', component: <DiceRace goBack={() => setActiveGame(null)} /> },
+    { id: 'tank', name: '🔤 Tank Duel', mode: '2P', component: <TankDuel goBack={() => setActiveGame(null)} /> },
   ];
 
   const filteredGames = games.filter(game => game.mode === playerMode);
