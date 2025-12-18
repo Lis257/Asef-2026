@@ -11,6 +11,7 @@ const TankDuel = ({ goBack }) => {
 
     const WIDTH = 600;
     const HEIGHT = 400;
+    const COOLDOWN = 400; // 0.4 second cooldown
 
     const p1 = {
       x: 60,
@@ -18,7 +19,8 @@ const TankDuel = ({ goBack }) => {
       color: '#00ffcc',
       keys: {},
       bullets: [],
-      hp: 5
+      hp: 5,
+      lastShot: 0 // Track cooldown
     };
 
     const p2 = {
@@ -27,7 +29,8 @@ const TankDuel = ({ goBack }) => {
       color: '#ff4d6d',
       keys: {},
       bullets: [],
-      hp: 5
+      hp: 5,
+      lastShot: 0 // Track cooldown
     };
 
     const update = () => {
@@ -120,12 +123,16 @@ const TankDuel = ({ goBack }) => {
       p1.keys[e.key] = true;
       p2.keys[e.key] = true;
 
-      // Shoot
-      if (e.key === ' ') {
+      const now = Date.now();
+
+      // Shoot with cooldown
+      if (e.key === ' ' && now - p1.lastShot > COOLDOWN) {
         p1.bullets.push({ x: p1.x + 12, y: p1.y });
+        p1.lastShot = now;
       }
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && now - p2.lastShot > COOLDOWN) {
         p2.bullets.push({ x: p2.x - 12, y: p2.y });
+        p2.lastShot = now;
       }
     };
 
